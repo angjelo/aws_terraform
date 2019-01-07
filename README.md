@@ -14,10 +14,6 @@ This terraform build consists of :
 
 First clone the Repo and run terraform init within
 
-### Icluded
- ->Terraform files
- ->rootkey
-
 ### 1)Credentials.tf
 
 You should edit the following:
