@@ -81,7 +81,7 @@ resource "aws_security_group" "nat" {
 
 ### 6) Change AMI based on region navigate to instances.cf.
 
-### 6)How to run
+### 7)How to run
 
 Execute on you terminal:
 ```
