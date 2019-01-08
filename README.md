@@ -106,7 +106,7 @@ ssh –A user@<bastion-IP-address or DNS-entry>
 ```
 Then you just ssh to the private instance
 ```
-ssh ec2-user@ipaddress
+ssh ec2-user@privateip
 ```
 
  
