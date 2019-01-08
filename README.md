@@ -79,47 +79,14 @@ resource "aws_security_group" "nat" {
 }
 ```
 
-### 5)SSH to private Subnet Instance
+### 6) Change AMI based on region navigate to instances.cf.
 
- We will need to use SSH-agent to do that. We do not want to store the private key into the bastion server for security purposes.
- We will cary the private key into memory and then ssh from the bastion server to the private instance.
- ```
- ssh-add -K myPrivateKey
- ssh –A user@<bastion-IP-address or DNS-entry>
- ```
- Then you just ssh to the private instance
- ```
- ssh ec2-user@ipaddress
- ```
- 
 ### 6)How to run
 
 Execute on you terminal:
 ```
 terraform apply
 ```
- 
-### 7) Change path locations
-
-```
-lb.tf
-
-resource "aws_lb_listener_rule" "rulename" {
- 
-  action {
-    type             = "forward"
-   ->target_group_arn = "${aws_alb_target_group.contact.arn}"
-  }
-
-  condition {
-    field  = "path-pattern"
-   ->values = ["/contact.html"]
-  }
-}
-```
-
-### 8) Change AMI based on region navigate to instances.cf.
-
 ### 9) Copy files to bastion
 ```
 scp /path/to/file username@a:/path/to/destination
@@ -130,7 +97,17 @@ scp /path/to/file username@a:/path/to/destination
 ```
 scp username@b:/path/to/file /path/to/destination
 ```
-
+### SSH to private Subnet Instance
+We will need to use SSH-agent to do that. We do not want to store the private key into the bastion server for security purposes.
+We will cary the private key into memory and then ssh from the bastion server to the private instance.
+```
+ssh-add -K myPrivateKey
+ssh –A user@<bastion-IP-address or DNS-entry>
+```
+Then you just ssh to the private instance
+```
+ssh ec2-user@ipaddress
+```
 
  
 
