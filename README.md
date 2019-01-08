@@ -117,12 +117,15 @@ resource "aws_lb_listener_rule" "rulename" {
   }
 }
 ```
-### 8) Copy files to bastion
+
+### 8) Change AMI based on region navigate to instances.cf.
+
+### 9) Copy files to bastion
 ```
 scp /path/to/file username@a:/path/to/destination
 ```
 
-### 9)Copy files by using scp from bastion
+### 10)Copy files by using scp from bastion
 
 ```
 scp username@b:/path/to/file /path/to/destination
