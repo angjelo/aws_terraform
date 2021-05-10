@@ -4,10 +4,11 @@
 
 resource "aws_alb" "front_end" {  
   name            = "front-end"  
-  subnets         = ["${aws_subnet.public_sub.id}","${aws_subnet.public_sub2.id}"]
-  security_groups = ["${aws_security_group.lb.id}"]
+  subnets         = [aws_subnet.public_sub.id,aws_subnet.public_sub2.id]
+  security_groups = [aws_security_group.lb.id]
   internal           = false
-  load_balancer_type = "application"   
+  load_balancer_type = "application"
+
   tags {    
     Name    = "Application LB"    
   }   
@@ -19,7 +20,7 @@ resource "aws_alb" "front_end" {
 
 
 resource "aws_alb_listener" "front_end" {  
-  load_balancer_arn = "${aws_alb.front_end.arn}"  
+  load_balancer_arn = aws_alb.front_end.arn
   port              = "80"  
   protocol          = "HTTP"
 
@@ -39,18 +40,20 @@ resource "aws_alb_listener" "front_end" {
 */
 
 resource "aws_lb_listener_rule" "static" {
-  listener_arn = "${aws_alb_listener.front_end.arn}"
+  listener_arn = aws_alb_listener.front_end.arn
   priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = "${aws_alb_target_group.contact.arn}"
+    target_group_arn = aws_alb_target_group.contact.arn
   }
 
   condition {
-    field  = "path-pattern"
+    path_pattern {
     values = ["/contact.html"]
+    }
   }
+
 }
 
 /*
@@ -58,16 +61,18 @@ resource "aws_lb_listener_rule" "static" {
 */
 
 resource "aws_lb_listener_rule" "path" {
-  listener_arn = "${aws_alb_listener.front_end.arn}"
+  listener_arn = aws_alb_listener.front_end.arn
   priority     = 99
 
   action {
     type             = "forward"
-    target_group_arn = "${aws_alb_target_group.about.arn}"
+    target_group_arn = aws_alb_target_group.about.arn
   }
 
   condition {
-    field  = "path-pattern"
+    path_pattern {
     values = ["/about.html"]
+    }
   }
+
 }
