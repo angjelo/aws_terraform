@@ -9,6 +9,14 @@ This terraform build consists of :
      e)Bastion host so you can SSh to the private server
      f)SSh public key gets delivered 
 
+```text
+         .----> [ Public Subnet A ] ----> [ Public Server A ]
+         |       [   + Load Balancer ] ----> [ Public Server B ]
+         |
+[ Internet ]   .----> [ Public Subnet B ] ----> [ Bastion Host ]
+         |       [   + NAT Gateway  ]       ----> [ Private Server A ]
+         '----> [ Extra Public Subnet ]      ----> [ Private Server B ]
+```
 
 ## Getting started
 
